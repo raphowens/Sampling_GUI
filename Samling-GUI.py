@@ -14,7 +14,7 @@ warnings.filterwarnings('ignore')"""
 
 '''Python GUI TITLE AND GEOMETRY'''
 root = Tk()
-root.title('VDE RENEWABLES GmbH')
+root.title('SAMPLING')
 #root.geometry('1500x750')
 width_value = root.winfo_screenwidth()
 height_value = root.winfo_screenheight()
