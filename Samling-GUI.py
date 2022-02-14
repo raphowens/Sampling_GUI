@@ -47,6 +47,12 @@ tv2.configure(xscrollcommand=treescrollx, yscrollcommand=treescrolly)
 treescrollx.pack(side='bottom', fill='x')
 treescrolly.pack(side='right', fill='y')
 
+
+def selection(sel_pal, sel_mod):
+    selection1(sel_pal, sel_mod)
+    selection(sel_pal, sel_mod)
+
+
 # SELECTION PROCESS FROM PALLETS AND MODULES
 def selection1(sel_pal, sel_mod):
     global Sample1
@@ -68,7 +74,7 @@ def selection1(sel_pal, sel_mod):
         lambda x: x.sample(sel_mod, replace=False))
 
     # RANDOM SELECTION OF SAMPLES FROM THE MODULES, SORTING AND EXPORTING TO CSV
-    Sample1_ = Sample1_.sample(sample_no1)
+    Sample1_ = Sample1_.sample(sample_no)
     Sample1_.to_csv('Sample1.csv')
     Sample1 = pd.read_csv('Sample1.csv')
     Sample1 = Sample1.sort_values('Containers').reset_index()
@@ -95,7 +101,7 @@ def selection2(sel_pal, sel_mod):
         lambda x: x.sample(sel_mod, replace=False))
 
     # RANDOM SELECTION OF SAMPLES FROM THE MODULES, SORTING AND EXPORTING TO CSV
-    Sample2_ = Sample2_.sample(sample_no2)
+    Sample2_ = Sample2_.sample(sample_no)
     Sample2_.to_csv('Sample2.csv')
     Sample2 = pd.read_csv('Sample2.csv')
     Sample2 = Sample2.sort_values('Containers').reset_index()
@@ -171,23 +177,28 @@ def sel_containers():
         Random_Lot1 = Population[Population['Containers'].isin(Random_Lot1)]
         Random_Lot2 = Population[Population['Containers'].isin(Random_Lot2)]
 
-
-'''SAMPLE 1 SIZE SELECTION'''
-def get_samples1():
-    global Sample1, sample_no1
+def get_samples():
     sel_containers()
+    get_samples1()
+    get_samples2()
+
+
+
+def get_samples1():
+    global Sample1, sample_no
+    #sel_containers()
 
     # USER INPUT VALUE FOR SAMPLE SIZE
-    sample_no1 = simpledialog.askinteger('Input number', 'Enter Sample Size 1')
+    sample_no = simpledialog.askinteger('Input number', 'Enter Sample Size')
 
-    if 1 < sample_no1 <= 20:
+    if 1 < sample_no <= 20:
         if container_number >= 5:
             selection1(2, 2)
 
         else:
             selection1(5, 4)
 
-    elif 20 < sample_no1 <= 30:
+    elif 20 < sample_no <= 30:
         if container_number >= 5:
             selection1(3, 3)
 
@@ -195,7 +206,7 @@ def get_samples1():
             selection1(5, 6)
 
 
-    elif 30 < sample_no1 <= 40:
+    elif 30 < sample_no <= 40:
         if container_number >= 5:
 
             selection1(4, 2)
@@ -204,7 +215,7 @@ def get_samples1():
             selection1(5, 8)
 
 
-    elif 40 < sample_no1 <= 50:
+    elif 40 < sample_no <= 50:
         if container_number >= 5:
 
             selection1(5, 2)
@@ -213,7 +224,7 @@ def get_samples1():
             selection1(5, 10)
 
 
-    elif 50 < sample_no1 <= 60:
+    elif 50 < sample_no <= 60:
         if container_number >= 5:
 
             selection1(4, 3)
@@ -222,7 +233,7 @@ def get_samples1():
             selection1(5, 12)
 
 
-    elif 60 < sample_no1 <= 70:
+    elif 60 < sample_no <= 70:
         if container_number >= 5:
 
             selection1(3, 5)
@@ -231,7 +242,7 @@ def get_samples1():
             selection1(5, 14)
 
 
-    elif 70 < sample_no1 <= 80:
+    elif 70 < sample_no <= 80:
         if container_number >= 5:
             selection1(4, 4)
 
@@ -239,7 +250,7 @@ def get_samples1():
             selection1(5, 16)
 
 
-    elif 80 < sample_no1 <= 90:
+    elif 80 < sample_no <= 90:
         if container_number >= 5:
             selection1(3, 6)
 
@@ -247,7 +258,7 @@ def get_samples1():
             selection1(5, 16)
 
 
-    elif 90 < sample_no1 <= 100:
+    elif 90 < sample_no <= 100:
         if container_number >= 5:
 
             selection1(4, 5)
@@ -256,7 +267,7 @@ def get_samples1():
             selection1(5, 18)
 
 
-    elif sample_no1 > 100:
+    elif sample_no > 100:
         if container_number >= 5:
 
             selection1(5, 6)
@@ -271,11 +282,11 @@ def get_samples1():
 
 '''SAMPLE 2 SIZE SELECTION'''
 def get_samples2():
-    global Sample2, sample_no2
-    sel_containers()
+    global Sample2, sample_no
+    #sel_containers()
 
-    sample_no2 = simpledialog.askinteger('Input number', 'Enter Sample Size 2')
-    if 0 < sample_no2 <= 20:
+    #sample_no2 = simpledialog.askinteger('Input number', 'Enter Sample Size 2')
+    if 0 < sample_no <= 20:
         if container_number >= 5:
 
             selection2(2, 2)
@@ -283,14 +294,14 @@ def get_samples2():
         else:
             selection2(5, 4)
 
-    elif 20 < sample_no2 <= 30:
+    elif 20 < sample_no <= 30:
         if container_number >= 5:
             selection2(3, 2)
 
         else:
             selection2(5, 6)
 
-    elif 30 < sample_no2 <= 40:
+    elif 30 < sample_no <= 40:
         if container_number >= 5:
 
             selection2(4, 2)
@@ -298,14 +309,14 @@ def get_samples2():
         else:
             selection2(5, 8)
 
-    elif 40 < sample_no2 <= 50:
+    elif 40 < sample_no <= 50:
         if container_number >= 5:
             selection2(5, 2)
 
         else:
             selection2(5, 10)
 
-    elif 50 < sample_no2 <= 60:
+    elif 50 < sample_no <= 60:
         if container_number >= 5:
 
             selection2(4, 3)
@@ -313,7 +324,7 @@ def get_samples2():
         else:
             selection2(5, 12)
 
-    elif 60 < sample_no2 <= 70:
+    elif 60 < sample_no <= 70:
         if container_number >= 5:
 
             selection2(3, 5)
@@ -321,7 +332,7 @@ def get_samples2():
         else:
             selection2(5, 14)
 
-    elif 70 < sample_no2 <= 80:
+    elif 70 < sample_no <= 80:
         if container_number >= 5:
 
             selection2(4, 4)
@@ -329,7 +340,7 @@ def get_samples2():
         else:
             selection2(5, 16)
 
-    elif 80 < sample_no2 <= 90:
+    elif 80 < sample_no <= 90:
         if container_number >= 5:
 
             selection2(3, 6)
@@ -338,7 +349,7 @@ def get_samples2():
             selection2(5, 16)
 
 
-    elif 90 < sample_no2 <= 100:
+    elif 90 < sample_no <= 100:
         if container_number >= 5:
 
             selection2(4, 5)
@@ -346,7 +357,7 @@ def get_samples2():
         else:
             selection2(5, 18)
 
-    elif sample_no2 > 100:
+    elif sample_no > 100:
         if container_number >= 5:
 
             selection2(5, 6)
@@ -572,8 +583,11 @@ file_menu.add_command(label="Exit", command=root.quit)
 random_menu = Menu(my_menu, tearoff=0)
 my_menu.add_cascade(label='Randomize', menu=random_menu)
 
-random_menu.add_command(label='Get Sample 1', command=get_samples1)
-random_menu.add_command(label='Get Sample 2', command=get_samples2)
+random_menu.add_command(label='Get Samples', command=get_samples)
+#random_menu.add_command(label='Get Sample 1', command=get_samples1)
+#random_menu.add_command(label='Get Sample 2', command=get_samples2)
+
+
 
 random_menu.add_command(label='Population Statistics', command=stats_population)
 random_menu.add_command(label='Sample 1 Statistics', command=stats_sample1)
